@@ -1,4 +1,4 @@
-ArgoCD Developer UI Walkthrough — OnePass Platform
+ArgoCD Developer UI Walkthrough
 
 1. ArgoCD UI Overview
 
