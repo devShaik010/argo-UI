@@ -1,112 +1,39 @@
-ArgoCD Developer UI Walkthrough
+# ArgoCD Developer UI Walkthrough
 
-1. ArgoCD UI Overview
+## 1. Applications
 
-After logging in, the Applications page provides an overview of all applications managed by ArgoCD.
+The Applications page lists the applications managed by ArgoCD. It shows each application's health, sync status, Git repository, and target environment.
 
-Screenshot: Application Dashboard
+**Screenshot:** Application Dashboard
 
-The dashboard provides visibility into:
+`Healthy` means the resources are running correctly, `Progressing` means a change is being applied or resources are starting, and `Degraded` indicates a problem. `Synced` means the cluster matches Git, while `OutOfSync` means they differ.
 
-* Application name
-* Deployment status
-* Health status
-* Sync status
-* Repository information
-* Target environment
+## 2. Application Details
 
-Health Status
+Select an application to view its Kubernetes resources, such as deployments, pods, services, and ConfigMaps. The resource tree makes it easy to find unhealthy or failing components.
 
-* Healthy → Application resources are running correctly.
-* Progressing → Deployment changes are being applied, or application resources are still starting.
-* Degraded → One or more application resources are unhealthy or experiencing issues.
+**Screenshot:** Application Detail / Resource Tree
 
-Sync Status
+## 3. Reviewing Changes
 
-* Synced → The Kubernetes environment matches the configuration stored in Git.
-* OutOfSync → The Kubernetes environment differs from the configuration stored in Git and requires synchronization.
+The Diff view compares the live Kubernetes state with the desired state in Git. Review it before syncing to confirm changes to images, configuration, environment variables, replicas, or manifests.
 
-⸻
+**Screenshot:** Diff View
 
-2. Understanding an Application
+## 4. Syncing
 
-Selecting an application opens the application details page, which provides a detailed view of the Kubernetes resources managed by ArgoCD.
+Sync applies the desired Git configuration to the cluster. Use it to deploy a new version, apply configuration changes, or correct an `OutOfSync` application. Production syncs should follow the required approval process.
 
-Screenshot: Application Detail / Resource Tree
+**Screenshot:** Manual Sync Dialog
 
-The resource tree helps developers understand the components deployed as part of their application, including:
+## 5. History and Rollback
 
-* Deployments
-* Pods
-* Services
-* ConfigMaps
-* Other Kubernetes resources
+Sync History shows previous deployments, Git revisions, and their timestamps. If needed, use a previous successful revision to restore a working version.
 
-This view can be used to verify whether application components are running correctly and identify any unhealthy resources.
+**Screenshot:** Sync History
 
-⸻
+## 6. Events and Logs
 
-3. Reviewing Application Changes
+Use Events to investigate deployment failures, scheduling issues, and unhealthy resources. Use Logs to troubleshoot application runtime errors.
 
-The Diff view allows developers to compare the current Kubernetes state with the desired state stored in Git.
-
-Screenshot: Diff View
-
-The Diff view helps review:
-
-* Container image changes
-* Configuration updates
-* Environment variable changes
-* Replica count changes
-* Kubernetes manifest updates
-
-Before syncing an application, reviewing the Diff helps confirm that the expected changes will be applied.
-
-⸻
-
-4. Syncing an Application
-
-Syncing an application applies the desired configuration from Git to the Kubernetes cluster.
-
-Screenshot: Manual Sync Dialog
-
-A sync operation is typically performed when:
-
-* A new application version needs to be deployed.
-* Configuration changes need to be applied.
-* An application is showing an OutOfSync status.
-
-For production deployments, sync should follow the required change approval process before applying changes.
-
-⸻
-
-5. Sync History and Rollback
-
-The Sync History section provides details about previous application deployments.
-
-Screenshot: Sync History
-
-Developers can review:
-
-* Previous sync operations
-* Deployment revisions
-* Git commit information
-* Deployment timeline
-
-Rollback can be used to restore a previous known working application version when required.
-
-⸻
-
-6. Application Events and Logs
-
-The Events and Logs sections help troubleshoot application issues.
-
-Screenshot: Events / Logs View
-
-Events provide information about Kubernetes resource activity, such as:
-
-* Deployment failures
-* Pod scheduling issues
-* Resource health problems
-
-Logs provide application runtime information that can help identify application-level issues.
+**Screenshot:** Events / Logs View
